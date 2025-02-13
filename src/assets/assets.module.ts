@@ -5,12 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Asset } from './entities/asset.entity';
 import { AssetsGateway } from './assets.gateway';
 
-// @Module({
-//   imports: [TypeOrmModule.forFeature([Asset])],
-//   controllers: [AssetsController],
-//   providers: [AssetsService, AssetsGateway],
-//   exports: [AssetsGateway],
-// })
+@Module({
+  imports: [TypeOrmModule.forFeature([Asset])],
+  controllers: [AssetsController],
+  providers: [AssetsService, AssetsGateway],
+  exports: [AssetsGateway],
+})
 export class AssetsModule {
   static forRoot() {
     return {
