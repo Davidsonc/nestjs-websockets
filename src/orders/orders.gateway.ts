@@ -7,7 +7,9 @@ import { Socket } from 'socket.io';
 
 // Definição de um tipo customizado caso o client tenha um `user`
 interface CustomSocket extends Socket {
-  user?: number;
+  data: {
+    userId: number;
+  };
 }
 
 @WebSocketGateway()
@@ -33,14 +35,14 @@ export class OrdersGateway {
       price: number;
     },
   ) {
-    if (!client.user) {
+    if (!client.data.userId) {
       client.emit('error', 'Usuário não autenticado');
       return;
     }
 
     const wallet = await this.walletRepository.findOne({
       where: {
-        userId: client.user,
+        userId: client.data.userId,
       },
     });
 
